@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}GameFy{% endblock %}</title>
+
+    {% load staticfiles %}
+
+    <!--css files-->
+    <link href="{% static 'gamefy/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'gamefy/css/font-awesome.min.css' %}" rel="stylesheet">
+    <link href="{% static 'gamefy/css/animate.css' %}" rel="stylesheet">
+    <link href="{% static 'gamefy/css/style.css' %}" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-TH-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{% url 'gamefy:index' %}">Home</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-TH-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="#">
+                    <a href="{% url 'gamefy:game' %}">Play Games</span></a>
+                </li>
+                <li>
+                    <a href="{% url 'gamefy:scoreboard' %}">Scoreboard</a>
+                </li>
+            </ul>
+            <!--
+            <form class="navbar-form navbar-left" role="search">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search games" method="get" action="#">
+                </div>
+                <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+            </form>
+            -->
+            <ul class="nav navbar-nav navbar-right">
+
+                {% block login_logout_user_area %}
+                    <!--if user is not logged in, then must show register and login icons-->
+                    {% if not user.is_authenticated %}
+                        <li>
+                            <a href="{% url 'gamefy:register' %}">
+                                <span class="glyphicon glyphicon-plus"></span> Register</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'gamefy:login' %}">
+                                <span class="glyphicon glyphicon-log-in"></span> Login</a>
+                        </li>
+                    <!-- otherwise must show profile and logout icon icon-->
+                    {% else %}
+                        <li>
+                            <a href="{% url 'gamefy:profile' %}">
+                                <span class="glyphicon glyphicon-user"></span> {{user.username}}</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'gamefy:logout' %}">
+                                <span class="glyphicon glyphicon-log-out"></span> Logout</a>
+                        </li>
+                    {% endif %}
+
+                {% endblock %}
+
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav><!-- end of navbar-default -->
+
+<!--body content inside block body-->
+{% block body %}
+{% endblock %}
+
+<!--java scripts-->
+<script src="{% static 'gamefy/js/jquery.min.js' %}"></script>
+<script src="{% static 'gamefy/js/bootstrap.min.js' %}"></script>
+</body>
+</html>

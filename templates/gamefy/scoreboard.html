@@ -1,0 +1,39 @@
+{% extends 'gamefy/base.html' %}
+
+<!--if user is logged in then must show profile and logout icons
+instead of register and login icons-->
+{% block login_logout_user_area %}
+<li>
+    <a href="{% url 'gamefy:profile' %}">
+        <span class="glyphicon glyphicon-user"></span> {{user.username}}</a>
+</li>
+<li>
+    <a href="{% url 'gamefy:logout' %}">
+        <span class="glyphicon glyphicon-log-out"></span> Logout</a>
+</li>
+{% endblock %}
+
+<!--scoreboard body for logged in user-->
+{% block body %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="container panel panel-default">
+
+            <h3 class="text-primary">Gamers scoreboard:</h3>
+            <table class="table table-bordered">
+                <tr class="bg-info text-warning">
+                    <th>Gamer's ID</th>
+                    <th>Game one score (number of try)</th>
+                </tr>
+                {% for gamer in all_gamers %}
+                <tr class="bg-warning text-primary">
+                    <td>{{ gamer.user }}</td>
+                    <td>{{ gamer.game_one_score }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            <br>
+        </div><!--end of container-->
+    </div>
+</div>
+{% endblock %}

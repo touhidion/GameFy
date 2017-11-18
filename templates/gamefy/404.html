@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>Page Not Found!</title>
+    {% load staticfiles %}
+
+    <!--css files-->
+    <link href="{% static 'gamefy/css/bootstrap.min.css' %}" rel="stylesheet">
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="container">
+            <div class="row">
+                <h3 class="text-danger">Page Not Found<h3>
+                    <br>
+                    <p>The requested page does not exist or you might need to login to see the page!</p>
+                    <p>Please go to the GameFy home page by clicking the link below.</p>
+                    <br>
+                    <a class="text-success" href="{% url 'gamefy:index' %}">GameFy Home</a>
+
+            </div><!--end of row-->
+        </div><!--end of container-->
+    </div>
+</div>
+</body>
+</html>

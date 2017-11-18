@@ -1,0 +1,36 @@
+{% extends 'gamefy/base.html' %}
+
+<!--home body // for all visitors-->
+{% block body %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="container">
+            <h1 class="text-center text-danger">GameFy</h1>>
+            <div class="row">
+                <div class="col-md-6 panel panel-default">
+                    <h3 class="text-warning text-center">About GameFy</h3>
+                    <p class="text-info" style="font-size:1.3em">GameFy is a free Web apps for the gamers that allows them
+                        to play online logic games.</p>
+                    <br>
+                </div>
+                <div class="col-md-6 panel panel-default">
+                    <h3 class="text-info">GameFy features:</h3>
+                    <ol type="I" class="text-warning" style="font-size:1.3em">
+                        <li>Gamer registration for personal account.</li>
+                        <li>Playing amazing different online logic games.</li>
+                        <li>Personal dashboard.</li>
+                        <li>Updated scoreboard to compare brain speed.</li>
+                    </ol>
+                    <br>
+                    <h3 class="text-info">Used technologies:</h3>
+                    <ul class="list-group" style="font-size:1.2em">
+                        <li class="list-group-item">Django & Python</li>
+                        <li class="list-group-item">Javascript</li>
+                        <li class="list-group-item">Bootstrap</li>
+                    </ul>
+                </div>
+            </div><!--end of row-->
+        </div><!--end of container-->
+    </div>
+</div>
+{% endblock %}

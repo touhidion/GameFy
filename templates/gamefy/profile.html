@@ -1,0 +1,49 @@
+{% extends 'gamefy/base.html' %}
+
+<!--if user is logged in then must show profile and logout icons
+instead of register and login icons-->
+{% block login_logout_user_area %}
+<li>
+    <a href="{% url 'gamefy:profile' %}">
+        <span class="glyphicon glyphicon-user"></span> {{user.username}}</a>
+</li>
+<li>
+    <a href="{% url 'gamefy:logout' %}">
+        <span class="glyphicon glyphicon-log-out"></span> Logout</a>
+</li>
+{% endblock %}
+
+<!--profile page body for logged in user-->
+{% block body %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 panel panel-default">
+                    <h3 class="text-primary">Your scoreboard:</h3>
+                    <table class="table table-bordered">
+                        <tr class="bg-info text-warning">
+                            <th>Username</th>
+                            <th>Game one score (number of try)</th>
+                        </tr>
+                        <tr class="bg-warning text-primary">
+                            <td>{{ gamer.user }}</td>
+                            <td>{{ gamer.game_one_score }}</td>
+                        </tr>
+                    </table>
+                    <br><br>
+                </div>
+                <div class="col-md-4 panel panel-default text-center">
+                    <br>
+                    <a href="{% url 'gamefy:delete_gamer' %}">
+                        <button class="btn btn-danger">Delete Your Account</button></a>
+                    <br><br>
+                    <p class="text-info"><strong>Be careful!</strong> if you press this <strong>Red button</strong>,
+                        you will not get a chance to be confirmed and your account as a gamer will be deleted permanently.</p>
+                    <br>
+                </div>
+            </div><!--end of row-->
+        </div><!--end of container-->
+    </div>
+</div>
+{% endblock %}

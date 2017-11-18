@@ -1,0 +1,104 @@
+{% extends 'gamefy/base.html' %}
+{% load staticfiles %}
+
+<!--if user is logged in then must show profile and logout icons
+instead of register and login icons-->
+{% block login_logout_user_area %}
+<li>
+    <a href="{% url 'gamefy:profile' %}">
+        <span class="glyphicon glyphicon-user"></span> {{user.username}}</a>
+</li>
+<li>
+    <a href="{% url 'gamefy:logout' %}">
+        <span class="glyphicon glyphicon-log-out"></span> Logout</a>
+</li>
+{% endblock %}
+
+<!--profile page body for logged in user-->
+{% block body %}
+
+<script src="{% static 'gamefy/js/game.js' %}"></script>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-4">
+                    <h3 class="text-primary">Games List:</h3>
+
+                    <ol type="I" style="font-size:1.2em" class="bg-info">
+                        <li>
+                            <a href="{% url 'gamefy:game' %}">
+                                <button class="btn btn-default" style="width:100%; text-align:left">Guess the number</button>
+                            </a>
+                        </li>
+                    </ol>
+                </div>
+
+                <div class="col-md-8 panel panel-default">
+                    <h4  id="game_notifications" class="bg-info" style="padding: 10px;">Guess a number between 0 and 50.</h4>
+                    <h4  id="success_message" class="bg-success" style="padding: 10px;"></h4>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="number"
+                                   style="font-weight: bold; font-size: 1.2em; width: 80%;padding: 8px 20px;margin: 5px 0;box-sizing: border-box;"
+                                   id="user_input" name="Input" placeholder="Your number here">
+                            <br>
+                            <button onclick="checkInputAndResponse({{ previous_score }})"
+                                    style="width: 80%;padding: 8px 20px;margin: 5px 0;box-sizing: border-box;"
+                                    class="btn btn-success">Submit your guess</button>
+                            <br><br><br>
+                            <button onclick="restartGame()"
+                                    style="width: 80%;padding: 8px 20px;margin: 5px 0;box-sizing: border-box;"
+                                    class="btn btn-warning">Restart</button>
+                        </div><!--end of first col-->
+
+                        <div class="col-md-6 bg-warning">
+                            <h4 class="text-success">Hint:</h4>
+                            <table class="table table-bordered">
+                                <tr >
+                                    <th>Make your guess:</th>
+                                </tr>
+                                <tr class="bg-warning">
+                                    <td id="game_hint"></td>
+                                </tr>
+                            </table>
+                            <h4>Score:</h4>
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th>Times you have tried:</th>
+                                </tr>
+                                <tr>
+                                    <td id="game_tries" style="font-weight: bold; font-size: 18px;">0</td>
+                                </tr>
+                            </table>
+                        </div><!--end of second col-->
+
+                    </div><!--end of row-->
+                </div>
+
+            </div><!--end of row-->
+        </div><!--end of container-->
+    </div>
+</div>
+<script>
+function saveBestScore(tries_number){
+    $.ajax({
+        url: '{% url "gamefy:game" %}',
+        method: 'POST',
+        data: {
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+            'score': tries_number,
+        },
+        success : function(data){
+            //alert("Score saved");
+        },
+        error : function (data) {
+             alert("error, while saving score!");
+        }
+    });
+}
+</script>
+{% endblock %}
